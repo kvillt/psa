@@ -1,4 +1,4 @@
-angular.module('app', ['ngTouch', 'ui.grid'])
+var app =angular.module('app', ['ngTouch', 'ui.grid'])
   .controller('MainCtrl', MainCtrl);
  
 function MainCtrl() {

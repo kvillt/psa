@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "rsa"
+  "defaultProject": "rsa",
+  "cli": {
+    "analytics": "23231a35-3953-47ef-871c-249a3cc6e310"
+  }
 }
