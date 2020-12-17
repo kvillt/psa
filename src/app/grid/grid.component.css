@@ -1,0 +1,29 @@
+.table-wrapper {
+    margin: auto;
+    width: 50%;
+    padding-top: 20px;
+    
+}
+
+t1 {
+    text-align: center;
+}
+
+#values {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #values td, #values th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+        
+    }
+
+    #values th {
+        padding-top:  12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color:lightgray;
+    }

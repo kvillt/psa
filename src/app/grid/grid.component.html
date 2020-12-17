@@ -1,0 +1,23 @@
+
+<!-- 
+    Just a firt test on how we could do it.
+    Next step here would be to be able to change the input
+    Will look in to this code https://mdbootstrap.com/docs/angular/tables/editable/
+-->
+<hr>
+
+<div class="table-wrapper">
+    <table id="values">
+        <tr>
+            <th *ngFor="let column of headers" >
+                {{column}}
+            </th>
+        </tr>
+
+        <tr *ngFor="let row of rows">
+            <td *ngFor="let column of headers">
+                {{row[column]}}
+            </td>
+        </tr>
+    </table>
+</div>
