@@ -1,8 +1,11 @@
 
 <!-- 
-    Just a firt test on how we could do it.
-    Next step here would be to be able to change the input
-    Will look in to this code https://mdbootstrap.com/docs/angular/tables/editable/
+    Here the grid html is handled and everything in {{}} is declared in teh grid.component.ts
+    All logic is handled by functions in the ts component right now.
+
+    This setup works with google sheets. If yoy copy, paste from google sheets the values will be printed in the console.log
+    This will probably not work with excel data. 
+
 -->
 <hr>
 
@@ -16,7 +19,7 @@
 
         <tr *ngFor="let row of rows">
             <td *ngFor="let column of headers">
-                {{row[column]}}
+                <span class="excel" contenteditable (input)="addData($event.target.innerText)" data-placeholder="insert data">{{row[column]}}</span>
             </td>
         </tr>
     </table>

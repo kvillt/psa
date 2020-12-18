@@ -17,7 +17,7 @@ t1 {
     #values td, #values th {
         border: 1px solid #ddd;
         padding: 8px;
-        text-align: right;
+        text-align: center;
         
     }
 
@@ -27,3 +27,7 @@ t1 {
         text-align: center;
         background-color:lightgray;
     }
+
+.excel:empty::before {
+    content: attr(data-placeholder);
+}
