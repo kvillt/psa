@@ -1,6 +1,6 @@
 
 <!-- 
-    Here the grid html is handled and everything in {{}} is declared in teh grid.component.ts
+    Here the grid html is handled and everything in {{}} is declared in the grid.component.ts
     All logic is handled by functions in the ts component right now.
 
     This setup works with google sheets. If yoy copy, paste from google sheets the values will be printed in the console.log
@@ -18,9 +18,11 @@
         </tr>
 
         <tr *ngFor="let row of rows">
+            
             <td *ngFor="let column of headers">
-                <span class="excel" contenteditable (input)="addData($event.target.innerText)" data-placeholder="insert data">{{row[column]}}</span>
+                <span class="excel" contenteditable (input)="addData($event.target.innerString)" data-placeholder="insert data">{{row[column]}}</span>
             </td>
+            
         </tr>
     </table>
 </div>

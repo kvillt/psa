@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class GridComponent implements OnInit {
 
   
-  headers = ["Value one", "Value two"];
+  headers = ["Group A", "Group B"];
   
   rows = [1];
 
