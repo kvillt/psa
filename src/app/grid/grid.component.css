@@ -4,6 +4,13 @@
     padding-top: 20px;
     
 }
+.results-button {
+    text-align: center;
+    margin: auto;
+    padding: 8px;
+    background-color:lightgray;
+
+}
 
 t1 {
     text-align: center;

@@ -20,9 +20,12 @@
         <tr *ngFor="let row of rows">
             
             <td *ngFor="let column of headers">
-                <span class="excel" contenteditable (input)="addData($event.target.innerString)" data-placeholder="insert data">{{row[column]}}</span>
+                <!-- target.textContent gives me the data as a string, but with no possiblilty of dividing it into its elements,
+                     or differentiating between if it is A or B-->
+                <span class="excel" contenteditable (input)="addData($event.target.textContent)" data-placeholder="insert data">{{row[column]}}</span>
             </td>
             
         </tr>
     </table>
 </div>
+<button (click)="calculateResults()">Calculate results</button>
