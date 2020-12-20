@@ -1,12 +1,23 @@
+"""
+Backend API for RSA
+
+Setup:
+ Virtual env, in api folder:
+    $ python3 -m venv env
+    $ source env/bin/activate
+    $ pip install -r requirements.txt
+
+Run:
+    $ python api.py
+
+Test:
+    $ curl -i -H "Content-Type: application/json" -X POST -d '{"A":[1,2,3,4,5], "B":[2,3,5,6,7]}' http://localhost:5000/api/post_data
+"""
 import flask
 import numpy as np
 from stat_calculator import fisher
 
-"""
-Test curl to POST data to be analyzed:
 
- curl -i -H "Content-Type: application/json" -X POST -d '{"A":[1,2,3,4,5], "B":[2,3,5,6,7]}' http://localhost:5000/api/post_data
-"""
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
