@@ -4,17 +4,16 @@
     padding-top: 20px;
     
 }
-.results-button {
-    text-align: center;
-    margin: auto;
-    padding: 8px;
-    background-color:lightgray;
 
+.container {
+    text-align: center;
+    padding-top: 10px;
 }
 
 t1 {
     text-align: center;
 }
+
 
 #values {
         border-collapse: collapse;
