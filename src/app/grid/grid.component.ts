@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GridComponent implements OnInit {
 
-  url = "http://127.0.0.1:4200/api/post_data"
+  url = "http://127.0.0.1:5000/api/post_data"
   A = [10,11,12,13,14]
   B = [15,16,17,18,19]
 
