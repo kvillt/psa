@@ -18,10 +18,10 @@
         </tr>
         <tr *ngFor="let row of rows"> 
             <td>
-                <div class="excel" contenteditable (input)="addData($event.target, 1)" data-placeholder="insert data"></div>
+                <div class="excel" contenteditable (paste)="onPaste($event, 1)" (keyup.enter)="addData($event.target, 1)" data-placeholder="insert data"></div>
             </td>
             <td>
-                <div class="excel" contenteditable (input)="addData($event.target, 2)" data-placeholder="insert data"></div>
+                <div class="excel" contenteditable (paste)="onPaste($event, 2)" (keyup.enter)="addData($event.target, 2)" data-placeholder="insert data"></div>
             </td>
         </tr>
     </table>
