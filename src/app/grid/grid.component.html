@@ -1,32 +1,52 @@
-
-<!-- 
-    Here the grid html is handled and everything in {{}} is declared in the grid.component.ts
-    All logic is handled by functions in the ts component right now.
-
-    This setup works with google sheets. If yoy copy, paste from google sheets the values will be printed in the console.log
-    This will probably not work with excel data. 
-
--->
 <hr>
+<div class="row">
+    <div class="col-6 table-wrapper">
+        <table id="values">
+            <tr>
+                <th *ngFor="let column of headers">
+                    {{column}}
+                </th>
+            </tr>
+            <tr *ngFor="let row of rows">
+                <td>
+                    <div class="excel" contenteditable (paste)="onPaste($event, 1)"
+                        (keyup.enter)="addData($event.target, 1)" data-placeholder="insert data"></div>
+                </td>
+                <td>
+                    <div class="excel" contenteditable (paste)="onPaste($event, 2)"
+                        (keyup.enter)="addData($event.target, 2)" data-placeholder="insert data"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-<div class="table-wrapper">
-    <table id="values">
+    <div class="col-3 matrix">
+        <table>
+            <caption>
+                <h3>Result matrix</h3>
+            </caption>
+            <tr>
+                <td>{{matrix[0][0]}}</td>
+                <td>{{matrix[0][1]}}</td>
+            </tr>
+            <tr>
+                <td>{{matrix[1][0]}}</td>
+                <td>{{matrix[1][1]}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-3 result">
+        <caption>
+            <h3>P value</h3>
+        </caption>
         <tr>
-            <th *ngFor="let column of headers" >
-                {{column}}
-            </th>
+            <td>{{pValue}}</td>
         </tr>
-        <tr *ngFor="let row of rows"> 
-            <td>
-                <div class="excel" contenteditable (paste)="onPaste($event, 1)" (keyup.enter)="addData($event.target, 1)" data-placeholder="insert data"></div>
-            </td>
-            <td>
-                <div class="excel" contenteditable (paste)="onPaste($event, 2)" (keyup.enter)="addData($event.target, 2)" data-placeholder="insert data"></div>
-            </td>
-        </tr>
-    </table>
+    </div>
+
 </div>
 <div class="container">
-    <button  (click)="calculateResults()">Calculate results</button>
+    <button (click)="calculateResults()">Calculate results</button>
+    <button (click)="reload()">New Calculation</button>
 </div>
-

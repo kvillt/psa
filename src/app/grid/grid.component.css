@@ -1,8 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 5px;
+}
+
 .table-wrapper {
-    margin: auto;
-    width: 50%;
-    padding-top: 20px;
     
+    padding: 50px;
+}
+
+
+.matrix {
+    padding-left: 20px;
+    text-align: center;
+    border-top: 1px;
+}
+
+.result {
+    padding-left: 40px;
+}
+
+.result td{
+    min-width: 70px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.matrix td {
+    border: 1px solid black;
+    min-width: 70px;
+    padding-left: 5px;
+    margin: 10px;
+    text-align: center;
 }
 
 .container {
@@ -10,30 +48,45 @@
     padding-top: 10px;
 }
 
+button {
+    padding: 5px;
+    margin: 10px;
+}
 t1 {
     text-align: center;
 }
 
-
 #values {
-        border-collapse: collapse;
-        width: 100%;
-    }
+    border-collapse: collapse;
+    width: 100%;
+}
 
-    #values td, #values th {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-        
-    }
+#values td,
+#values th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
 
-    #values th {
-        padding-top:  12px;
-        padding-bottom: 12px;
-        text-align: center;
-        background-color:lightgray;
-    }
+#values th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: lightgray;
+}
 
 .excel:empty::before {
     content: attr(data-placeholder);
+}
+
+
+
+/* For desktop: */
+.col-3 {width: 25%;}
+.col-6 {width: 50%;}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+   .col-6{width: 100%;}
+   .col-3{width: 50%;}
 }
