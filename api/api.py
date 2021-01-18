@@ -14,6 +14,7 @@ Test:
     $ curl -i -H "Content-Type: application/json" -X POST -d '{"A":[1,2,3,4,5], "B":[2,3,5,6,7]}' http://localhost:5000/api/post_data
 """
 import flask
+from waitress import serve
 import numpy as np
 from stat_calculator import fisher, mann_whitney, normality_test
 
@@ -59,7 +60,7 @@ def api_post():
     stat, p = normality_test(A, B)
     ret['normaltest']['stat'] = stat
     ret['normaltest']['p'] = p
-    
+
     return flask.jsonify(ret), 201
 
 
@@ -68,4 +69,8 @@ def not_found(error):
     return flask.make_response(flask.jsonify({'error': 'Not found'}), 404)
 
 
-app.run(port=5000)
+#app.run(port=5000)
+
+if __name__ == "__main__":
+    #app.run('0.0.0.0',port=server_port)
+    serve(app, '0.0.0.0', port=5000)
