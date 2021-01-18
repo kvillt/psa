@@ -15,7 +15,7 @@ Test:
 """
 import flask
 import numpy as np
-from stat_calculator import fisher
+from stat_calculator import fisher, mann_whitney, normality_test
 
 
 app = flask.Flask(__name__)
@@ -23,16 +23,21 @@ app.config["DEBUG"] = True
 
 
 ret = {
-    'fisher': {}
+    'fisher': {},
+    'mannwhitney': {},
+    'normaltest': {}
 }
+
 
 @app.route('/', methods=['GET'])
 def home():
     return "<h1>PSA - API</h1>"
 
+
 @app.route('/api/get_results', methods=['GET'])
 def get_results():
     return flask.jsonify(ret), 200
+
 
 @app.route('/api/post_data', methods=['POST'])
 def api_post():
@@ -47,10 +52,20 @@ def api_post():
     ret['fisher']['matrix'] = matrix
     ret['fisher']['p'] = p
 
+    stat, p = mann_whitney(A, B)
+    ret['mannwhitney']['stat'] = stat
+    ret['mannwhitney']['p'] = p
+
+    stat, p = normality_test(A, B)
+    ret['normaltest']['stat'] = stat
+    ret['normaltest']['p'] = p
+    
     return flask.jsonify(ret), 201
+
 
 @app.errorhandler(404)
 def not_found(error):
     return flask.make_response(flask.jsonify({'error': 'Not found'}), 404)
+
 
 app.run(port=5000)
