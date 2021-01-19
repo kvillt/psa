@@ -50,6 +50,7 @@ def api_post():
     B = np.array(flask.request.json['B']).astype(np.float)
 
     p, matrix = fisher(A, B)
+    print("Fisher: p: {}, matrix: {}".format(p, matrix))
     ret['fisher']['matrix'] = matrix
     ret['fisher']['p'] = p
 

@@ -2,7 +2,7 @@ import numpy as np
 import scipy.stats as st
 
 
-def fisher(A, B, ROC_optimal=True):
+def fisher(A, B, ROC_optimal=False):
     """Calculating fisher exact test matrix and p-value
 
     Args:
@@ -16,7 +16,7 @@ def fisher(A, B, ROC_optimal=True):
         m = threshold(A, B)
     else:
         m = (np.median(A) + np.median(B))/2
-    
+    print(m)    
     a = float(np.sum(A>m))
     b = float(np.sum(B>m))
 
@@ -49,13 +49,13 @@ def threshold(A, B):
 
     for i,t in enumerate(thresholds):
         A_ = A > t
-        B_ = B > t
+        B_ = B < t
 
         # Vector with inverted tpr and normal fpr, to minimize to find best
         # threshold value to maximize nr of true positive and true negative
-        tpr_fpr[i, :] = [1 - np.sum(A_)/len(A), np.sum(B_)/len(B)]
+        tpr_fpr[i, :] = [np.sum(A_)/len(A),1 - np.sum(B_)/len(B)]
     
-    m = np.argmin(np.linalg.norm(tpr_fpr, ord=2, axis=1))
+    m = np.argmax(np.linalg.norm(tpr_fpr, ord=2, axis=1))
     optimal_threshold = thresholds[m]
 
     return optimal_threshold
@@ -83,5 +83,6 @@ def mann_whitney(A, B, one_sided=False):
 def normality_test(A, B):
 
     V = np.hstack((A, B))
-    
-    return st.normaltest(V)
+    if len(V) > 8: 
+        return st.normaltest(V)
+    return 0, 0
