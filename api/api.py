@@ -14,12 +14,14 @@ Test:
     $ curl -i -H "Content-Type: application/json" -X POST -d '{"A":[1,2,3,4,5], "B":[2,3,5,6,7]}' http://localhost:5000/api/post_data
 """
 import flask
+from flask_cors import CORS
 from waitress import serve
 import numpy as np
 from stat_calculator import fisher, mann_whitney, normality_test
 
 
 app = flask.Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = True
 
 
@@ -61,7 +63,8 @@ def api_post():
     ret['normaltest']['stat'] = stat
     ret['normaltest']['p'] = p
 
-    return flask.jsonify(ret), 201
+    response = flask.jsonify(ret), 201
+    return response
 
 
 @app.errorhandler(404)
@@ -72,5 +75,5 @@ def not_found(error):
 #app.run(port=5000)
 
 if __name__ == "__main__":
-    #app.run('0.0.0.0',port=server_port)
+    #app.run('0.0.0.0',port=5000)
     serve(app, '0.0.0.0', port=5000)
