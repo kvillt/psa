@@ -10,11 +10,11 @@
             <tr *ngFor="let row of rows">
                 <td>
                     <div class="excel" contenteditable (paste)="onPaste($event, 1)"
-                        (keyup.enter)="addData($event.target, 1)" data-placeholder="insert data"></div>
+                        (keyup)="addData($event, 1)" data-placeholder="insert data"></div>
                 </td>
                 <td>
                     <div class="excel" contenteditable (paste)="onPaste($event, 2)"
-                        (keyup.enter)="addData($event.target, 2)" data-placeholder="insert data"></div>
+                        (keyup)="addData($event, 2)" data-placeholder="insert data"></div>
                 </td>
             </tr>
         </table>
@@ -23,8 +23,10 @@
     <div class="col-3 matrix">
         <table>
             <caption>
-                <h3>Result matrix</h3>
+                <h3>Fisher</h3>
+                <span id="Result">Result matrix</span>
             </caption>
+            
             <tr>
                 <td>{{matrix[0][0]}}</td>
                 <td>{{matrix[0][1]}}</td>
@@ -33,16 +35,35 @@
                 <td>{{matrix[1][0]}}</td>
                 <td>{{matrix[1][1]}}</td>
             </tr>
+           
         </table>
+        <div id="fisher">P value: {{fisher_pValue}}</div>
     </div>
 
     <div class="col-3 result">
-        <caption>
-            <h3>P value</h3>
-        </caption>
-        <tr>
-            <td>{{pValue}}</td>
-        </tr>
+        <div id="Mann-Whitney">
+            <caption>
+                <h3>Mann-Whitney</h3>
+            </caption>
+            <tr>
+                <td>P value: <span>{{mann_pValue}}</span></td>
+            </tr>
+            <tr>
+                <td>Stat: {{mann_stat}}</td>
+            </tr>
+        </div>
+        
+        <div id="Normality">
+            <caption>
+                <h3>Normality</h3>
+            </caption>
+            <tr>
+                <td>P value: <span>{{norm_pValue}}</span></td>
+            </tr>
+            <tr>
+                <td>Stat: {{norm_stat}}</td>
+            </tr>
+        </div>
     </div>
 
 </div>

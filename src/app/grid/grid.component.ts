@@ -25,7 +25,11 @@ url = "http://68.183.74.23:5000/api/post_data"
   groupB = new Array;
 
   matrix = [[0, 0], [0, 0]];
-  pValue = 0;
+  fisher_pValue = 0;
+  mann_pValue = 0;
+  mann_stat = 0;
+  norm_pValue = 0;
+  norm_stat = 0;
 
   headers = ["Group A", "Group B"];
 
@@ -50,12 +54,20 @@ url = "http://68.183.74.23:5000/api/post_data"
   calculateResults() {
     this.http.post<any>(this.url, { "A": this.groupA, "B": this.groupB }).subscribe(data => {
       this.postId = data.id
+      //Fisher values
       this.matrix[0][0] = data.fisher.matrix[0][0];
       this.matrix[0][1] = data.fisher.matrix[0][1];
       this.matrix[1][0] = data.fisher.matrix[1][0];
       this.matrix[1][1] = data.fisher.matrix[1][1];
-      this.pValue = Number((data.fisher.p).toFixed(3)); 
-      // Now it's 3 decimals, change if more or less is needed, I picked 3 for design reasons
+      this.fisher_pValue = Number((data.fisher.p).toFixed(3)); 
+
+      //Mann Whitney
+      this.mann_pValue = Number((data.mannwhitney.p).toFixed(3))
+      this.mann_stat = Number((data.mannwhitney.stat).toFixed(3))
+
+      //Normality
+      this.norm_pValue =Number((data.normaltest.p).toFixed(3))
+      this.norm_stat =Number((data.normaltest.stat).toFixed(3))
     })
   }
 
@@ -70,13 +82,17 @@ url = "http://68.183.74.23:5000/api/post_data"
   }
 
   convertToNumbers(inputData: any, td_num: number) {
-    var tdOne = td_num == 1
-    var counter = tdOne ? this.numCounterA : this.numCounterB
-    var number = inputData.innerText.split("\n")
-    number = number[counter++].replace(',', '.')
+    if(inputData.keyCode == 13) {
+      inputData= inputData.target;
+      var tdOne = td_num == 1
+      var counter = tdOne ? this.numCounterA : this.numCounterB
+      var number = inputData.innerText.split("\n")
+      number = number[counter++].replace(',', '.')
 
-    tdOne ? this.groupA.push(parseFloat(number)) : this.groupB.push(parseFloat(number))
-    tdOne ? this.numCounterA = counter : this.numCounterB = counter
+      tdOne ? this.groupA.push(parseFloat(number)) : this.groupB.push(parseFloat(number))
+      tdOne ? this.numCounterA = counter : this.numCounterB = counter
+    }
+    
   }
 
   reload() {
