@@ -53,7 +53,7 @@ def threshold(A, B):
 
         # Vector with inverted tpr and normal fpr, to minimize to find best
         # threshold value to maximize nr of true positive and true negative
-        tpr_fpr[i, :] = [np.sum(A_)/len(A),1 - np.sum(B_)/len(B)]
+        tpr_fpr[i, :] = [np.sum(A_)/len(A), np.sum(B_)/len(B)]
     
     m = np.argmax(np.linalg.norm(tpr_fpr, ord=2, axis=1))
     optimal_threshold = thresholds[m]
