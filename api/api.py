@@ -76,5 +76,5 @@ def not_found(error):
 #app.run(port=5000)
 
 if __name__ == "__main__":
-    #app.run('0.0.0.0',port=5000)
-    serve(app, '0.0.0.0', port=5000)
+    app.run('0.0.0.0',port=5000)
+    #serve(app, '0.0.0.0', port=5000)

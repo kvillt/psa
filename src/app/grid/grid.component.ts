@@ -82,15 +82,35 @@ url = "http://68.183.74.23:5000/api/post_data"
   }
 
   convertToNumbers(inputData: any, td_num: number) {
+    var tdOne = td_num == 1
+    
     if(inputData.keyCode == 13) {
+    
       inputData= inputData.target;
-      var tdOne = td_num == 1
-      var counter = tdOne ? this.numCounterA : this.numCounterB
+      
       var number = inputData.innerText.split("\n")
-      number = number[counter++].replace(',', '.')
-
-      tdOne ? this.groupA.push(parseFloat(number)) : this.groupB.push(parseFloat(number))
-      tdOne ? this.numCounterA = counter : this.numCounterB = counter
+      number = number.slice(0,-2)
+      number = number[number.length-1].replace(',', '.')
+      if(!isNaN(number)) {
+        tdOne ? this.groupA.push(parseFloat(number)) : this.groupB.push(parseFloat(number))
+        console.log("Enter A " + this.groupA)
+        console.log("Enter B " + this.groupB)
+      } 
+    
+    }
+    if(inputData.keyCode == 8) {
+      inputData= inputData.target;
+      var numbers = inputData.innerText.split("\n")
+      number = numbers[numbers.length-1].replace(',', '.')
+      number = parseFloat(number)
+      if(isNaN(number)) {
+        return  
+      }
+      if(numbers.length < this.groupA.length) {
+        tdOne ? this.groupA.pop() : this.groupB.pop()
+        console.log("Back A " + this.groupA)
+        console.log("Back B " + this.groupB)
+      } 
     }
     
   }
