@@ -93,7 +93,6 @@ export class GridComponent implements OnInit {
         number = parseFloat(number)
         if (!isNaN(number)) {
           tdOne ? this.groupA.push(number) : this.groupB.push(number)
-          console.log(this.groupA)
         }
         break;
       case 8:
@@ -105,7 +104,6 @@ export class GridComponent implements OnInit {
         }
         else if (this.groupA.includes(number)) {
           tdOne ? this.groupA.pop() : this.groupB.pop()
-          console.log(this.groupA)
         }
     }
   }
