@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GridComponent implements OnInit {
 
-url = "http://68.183.74.23:5000/api/post_data"
+  url = "http://68.183.74.23:5000/api/post_data"
   A = [10, 11, 12, 13, 14]
   B = [15, 16, 17, 18, 19]
 
@@ -59,15 +59,15 @@ url = "http://68.183.74.23:5000/api/post_data"
       this.matrix[0][1] = data.fisher.matrix[0][1];
       this.matrix[1][0] = data.fisher.matrix[1][0];
       this.matrix[1][1] = data.fisher.matrix[1][1];
-      this.fisher_pValue = Number((data.fisher.p).toFixed(3)); 
+      this.fisher_pValue = Number((data.fisher.p).toFixed(3));
 
       //Mann Whitney
       this.mann_pValue = Number((data.mannwhitney.p).toFixed(3))
       this.mann_stat = Number((data.mannwhitney.stat).toFixed(3))
 
       //Normality
-      this.norm_pValue =Number((data.normaltest.p).toFixed(3))
-      this.norm_stat =Number((data.normaltest.stat).toFixed(3))
+      this.norm_pValue = Number((data.normaltest.p).toFixed(3))
+      this.norm_stat = Number((data.normaltest.stat).toFixed(3))
     })
   }
 
@@ -81,41 +81,45 @@ url = "http://68.183.74.23:5000/api/post_data"
     td_num == 1 ? this.groupA = results : this.groupB = results;
   }
 
+  //Handling input for keyCode 13(Enter) and 8(Backspace)
   convertToNumbers(inputData: any, td_num: number) {
     var tdOne = td_num == 1
-    
-    if(inputData.keyCode == 13) {
-    
-      inputData= inputData.target;
-      
-      var number = inputData.innerText.split("\n")
-      number = number.slice(0,-2)
-      number = number[number.length-1].replace(',', '.')
-      if(!isNaN(number)) {
-        tdOne ? this.groupA.push(parseFloat(number)) : this.groupB.push(parseFloat(number))
-        console.log("Enter A " + this.groupA)
-        console.log("Enter B " + this.groupB)
-      } 
-    
+
+    switch (inputData.keyCode) {
+      case 13:
+        var numbers = getNumbers(inputData)
+        numbers = numbers.slice(0, -2)
+        var number = numbers.last().replace(',', '.')
+        number = parseFloat(number)
+        if (!isNaN(number)) {
+          tdOne ? this.groupA.push(number) : this.groupB.push(number)
+        }
+        break;
+      case 8:
+        var numbers = getNumbers(inputData)
+        number = numbers.last().replace(',', '.')
+        number = parseFloat(number)
+        if (isNaN(number)) {
+          return
+        }
+        else if (this.groupA.includes(number)) {
+          tdOne ? this.groupA.pop() : this.groupB.pop()
+        }
     }
-    if(inputData.keyCode == 8) {
-      inputData= inputData.target;
-      var numbers = inputData.innerText.split("\n")
-      number = numbers[numbers.length-1].replace(',', '.')
-      number = parseFloat(number)
-      if(isNaN(number)) {
-        return  
-      }
-      if(numbers.length < this.groupA.length) {
-        tdOne ? this.groupA.pop() : this.groupB.pop()
-        console.log("Back A " + this.groupA)
-        console.log("Back B " + this.groupB)
-      } 
-    }
-    
   }
 
   reload() {
     location.reload();
+  }
+}
+
+function getNumbers(inputData: any) {
+  inputData = inputData.target;
+  return inputData.innerText.split("\n")
+}
+
+if (!Array.prototype.last) {
+  Array.prototype.last = function () {
+    return this[this.length - 1]
   }
 }
