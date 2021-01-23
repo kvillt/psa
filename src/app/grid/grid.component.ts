@@ -89,21 +89,23 @@ export class GridComponent implements OnInit {
       case 13:
         var numbers = getNumbers(inputData)
         numbers = numbers.slice(0, -2)
-        var number = numbers.last().replace(',', '.')
+        var number = last(numbers).replace(',', '.')
         number = parseFloat(number)
         if (!isNaN(number)) {
           tdOne ? this.groupA.push(number) : this.groupB.push(number)
+          console.log(this.groupA)
         }
         break;
       case 8:
         var numbers = getNumbers(inputData)
-        number = numbers.last().replace(',', '.')
+        number = last(numbers).replace(',', '.')
         number = parseFloat(number)
         if (isNaN(number)) {
           return
         }
         else if (this.groupA.includes(number)) {
           tdOne ? this.groupA.pop() : this.groupB.pop()
+          console.log(this.groupA)
         }
     }
   }
@@ -118,8 +120,6 @@ function getNumbers(inputData: any) {
   return inputData.innerText.split("\n")
 }
 
-if (!Array.prototype.last) {
-  Array.prototype.last = function () {
-    return this[this.length - 1]
-  }
+function last(arr: any) {
+    return arr[arr.length-1]
 }
