@@ -17,6 +17,8 @@ export class GridComponent implements OnInit {
 
   isClicked = false;
 
+  theDiv = null
+
   numbers = new Array;
   numCounterA = 0;
   numCounterB = 0;
@@ -52,6 +54,9 @@ export class GridComponent implements OnInit {
   }
 
   calculateResults() {
+
+    console.log(this.theDiv)
+
     this.http.post<any>(this.url, { "A": this.groupA, "B": this.groupB }).subscribe(data => {
       this.postId = data.id
       //Fisher values
@@ -84,7 +89,7 @@ export class GridComponent implements OnInit {
   //Handling input for keyCode 13(Enter) and 8(Backspace)
   convertToNumbers(inputData: any, td_num: number) {
     var tdOne = td_num == 1
-
+    this.theDiv = inputData.target.innerText
     switch (inputData.keyCode) {
       case 13:
         var numbers = getNumbers(inputData)
